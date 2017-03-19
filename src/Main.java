@@ -29,7 +29,6 @@ public class Main {
 			File file = new File (answers[0]);
 			fileOut = new BufferedWriter (new FileWriter (new File (answers[1])));
 			in = new Scanner (file); 
-			System.out.println(scan.hasNext());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
