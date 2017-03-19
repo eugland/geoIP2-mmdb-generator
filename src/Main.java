@@ -12,11 +12,9 @@ public class Main {
 		"What is the path for your file?  (type 0 for Command prompt manual input)", 
 		"Where do you want to store the script? ", 
 	};
-	
-	
-	
 	String answers[]= new String[questions.length]; 
 	Scanner scan;
+	Scanner in;
 	BufferedWriter fileOut;
 	IPpack ippack; 
 	
@@ -30,7 +28,7 @@ public class Main {
 		try {
 			File file = new File (answers[0]);
 			fileOut = new BufferedWriter (new FileWriter (new File (answers[1])));
-			scan = new Scanner (file); 
+			in = new Scanner (file); 
 			System.out.println(scan.hasNext());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -54,8 +52,8 @@ public class Main {
 	
 	private void fileReadin (){
 		String buffered = "init";
-		while (scan.hasNextLine()) {
-			buffered = scan.nextLine();
+		while (in.hasNextLine()) {
+			buffered = in.nextLine();
 			System.out.println (buffered);
 		}
 	}
