@@ -2,11 +2,24 @@
 public class IPref {
 	int id;
 	
+	String dataCenter;
+	String environment;
+	String desc;
+	
 	String country;
 	String province;
 	String city;
+	
+	String CountryCode0;
+	String CountryCode1;
+	String CountryCode2;
+	String postalCode;
+	String areaCode;
+	
 	Geo geo;	
-	String dataCenter;
+	
+	
+	
 	
 	static class Geo{
 		double lattitude = 0;
@@ -19,6 +32,7 @@ public class IPref {
 	}
 	
 	public IPref (){
+		
 	}
 	
 	
