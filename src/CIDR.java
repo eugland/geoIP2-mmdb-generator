@@ -34,6 +34,7 @@ import java.util.Objects;
  * both IPv4 and IPv6.
  */
 public class CIDR {
+	public boolean exist;
     private String cidr;
     private String thekey;
 
@@ -42,15 +43,10 @@ public class CIDR {
     private InetAddress endAddress;
     private int prefixLength;
 
-    public static boolean create(String ip, int range){
-    	new CIDR(ip, range);
-    	
-		return false;
-    	
-    }
+    
     
     public CIDR(){
-    	
+    	exist = false;
     }
     
     
@@ -60,6 +56,7 @@ public class CIDR {
         prefixLength = range;
 
         calculate();
+        exist = true;
     }
 
     public CIDR(String cidr) throws UnknownHostException {
@@ -76,8 +73,10 @@ public class CIDR {
             prefixLength = Integer.parseInt(networkPart);
 
             calculate();
+            exist = true;
         } else {
             throw new IllegalArgumentException("not an valid CIDR format!");
+            exist = false; 
         }
     }
 

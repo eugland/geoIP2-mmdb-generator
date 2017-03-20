@@ -22,8 +22,8 @@ public class IPpack {
 	
 	
 	public void process(String buffered) {
-		CIDR cidr;
-		IPref ref; 
+		CIDR cidr = new CIDR();
+		IPref ref = null; 
 		//Matcher m = ipPattern.matcher(buffered);
 		
 		//split into ip field and reference field
@@ -40,15 +40,16 @@ public class IPpack {
 			ips[i] = ips[i].trim();
 		}
 		
-		//Handlign IPs
-		
+		//Handling IPs		
 		try {
 			cidr = new CIDR(ips[0], 24);
 		} catch (Exception e){}
 		
 		
 		
-		this.add(new IPref, cidr);
+		if (cidr.exist && ref != null){
+			this.add(ref, cidr);
+		}
 		
 		
 		
