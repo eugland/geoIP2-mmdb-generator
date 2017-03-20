@@ -24,5 +24,12 @@ public class IPpack {
 		System.out.println();
 	}
 	
+	private void add (IPref ref, CIDR ip) {
+		TreeSet<CIDR> set; 
+		set = (ipMap.get(ref) == null)? new TreeSet<CIDR> (): ipMap.get(ref);
+		set.add(ip);
+		ipMap.put(ref, set);
+	}
+	
 }
 
