@@ -18,13 +18,10 @@ public class IPpack {
 	
 	
 	public void process(String buffered) {
+		String [] bf = buffered.split("()-,");
 		
-		String [] bf = buffered.split(buffered, "()-,");
-		
-		while (st.hasMoreTokens()){			
-			String bf = st.nextToken().trim();
-			System.out.print(bf + "|");
-			
+		for (int i = 0; i < bf.length; i ++){
+			System.out.print(bf[i] + "|");
 		}
 		System.out.println();
 	}
