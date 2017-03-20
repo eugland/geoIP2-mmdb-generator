@@ -29,6 +29,14 @@ public class IPref {
 		}		
 	}
 	
+	public IPref (String Country, String Province, String City){
+		country = Country;
+		province = Province; 
+		city = City; 
+		
+		
+	}
+	
 	public IPref (){
 		
 	}

@@ -53,7 +53,7 @@ public class Main {
 		String buffered = "init";
 		while (in.hasNextLine()) {
 			buffered = in.nextLine();
-			System.out.println (buffered);
+			ippack.process (buffered);
 		}
 	}
 	
