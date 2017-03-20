@@ -1,7 +1,6 @@
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -30,7 +29,6 @@ public class Main {
 			fileOut = new BufferedWriter (new FileWriter (new File (answers[1])));
 			in = new Scanner (file); 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
@@ -41,7 +39,7 @@ public class Main {
 		}
 		
 		
-		ippack.display();
+		ippack.write(fileOut);
 		
 		
 		
@@ -114,6 +112,43 @@ public class Main {
 		System.out.println(last.equals (last1));
 		System.out.println(cidrUtils.equals (yolo));
 		System.out.println(yol.size());
+	}
+	
+	
+	static class yo{
+		String ini_command =  
+		  "use MaxMind::DB::Writer::Tree;"
+		+ "my %types = ("
+		+ "		color => 'utf8_string',"
+		+ "		dogs  => [ 'array', 'utf8_string' ],"
+		+ "		size  => 'uint16',"
+		+ ");"				
+				
+		+ "my $tree = MaxMind::DB::Writer::Tree->new("
+		+ "		ip_version            => 4,"
+		+ "		record_size           => 24,"
+		+ "		database_type         => 'My-IP-Data',"
+		+ "		languages             => ['en'],"
+		+ "		description           => { en => 'My database of IP data' },"
+		+ "		map_key_type_callback => sub { $types{ $_[0] } },"
+		+ ");" 
+	 	+ "$tree->insert_network(";
+	 	
+	 	
+	 	String mid_command = 
+	 	  "		    '2001:db8::/48',								"
+	 	+ "		    {												"
+	 	+ "		        color => 'blue',							"
+	 	+ "		        dogs  => [ 'Fido', 'Ms. Pretty Paws' ],		"
+	 	+ "		        size  => 42,								"
+	 	+ "		    },												";
+	 	
+	 	
+	 	String end_command = 
+	 	  "		);"	 	
+	 	+ "		open my $fh, '>:raw', '/path/to/my-ip-data.mmdb';"
+	 	+ "		$tree->write_tree($fh);";
+				
 	}
 	
 	
