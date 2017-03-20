@@ -1,0 +1,15 @@
+
+apply plugin: 'java'
+
+
+repositories {
+    
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.21'
+    compile 'com.google.maps:google-maps-services:0.1.17'
+    testCompile 'junit:junit:4.12'
+}

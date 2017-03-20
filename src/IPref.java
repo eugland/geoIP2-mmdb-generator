@@ -13,13 +13,11 @@ public class IPref {
 	String CountryCode0;
 	String CountryCode1;
 	String CountryCode2;
+	
 	String postalCode;
 	String areaCode;
 	
 	Geo geo;	
-	
-	
-	
 	
 	static class Geo{
 		double lattitude = 0;
