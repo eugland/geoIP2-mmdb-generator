@@ -42,10 +42,18 @@ public class CIDR {
     private InetAddress endAddress;
     private int prefixLength;
 
+    public static boolean create(String ip, int range){
+    	new CIDR(ip, range);
+    	
+		return false;
+    	
+    }
+    
     public CIDR(){
     	
     }
-
+    
+    
     public CIDR(String ip, int range) throws UnknownHostException{
     	cidr = ip + "/" + range;
     	inetAddress = InetAddress.getByName(ip);

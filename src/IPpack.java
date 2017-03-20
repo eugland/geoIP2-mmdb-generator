@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -7,7 +8,8 @@ import java.util.regex.Pattern;
 public class IPpack {
 	
 	Map<IPref, TreeSet<CIDR>> ipMap;	
-	private static Pattern ipPattern = Pattern.compile("(\d+\.\d+\.\d+\.\d+)");
+	//TODO sortout the Pattern Usage
+	//private static Pattern ipPattern = Pattern.compile("(\d+\.\d+\.\d+\.\d+)");
 	
 	public IPpack (){
 		ipMap = new HashMap<IPref, TreeSet<CIDR>> ();	
@@ -20,14 +22,36 @@ public class IPpack {
 	
 	
 	public void process(String buffered) {
-		Matcher m = ipPattern.matcher(buffered);
-		System.out.println(buffered);
-        if (m.matches()) {
-        	
-            System.out.println(" matches; first part is " + m.group(0));
-        } else {
-            System.out.println(" does not match.");
-        }
+		CIDR cidr;
+		IPref ref; 
+		//Matcher m = ipPattern.matcher(buffered);
+		
+		//split into ip field and reference field
+		String twoparts[] = buffered.split("\\(");
+		//System.out.println(twoparts.length);
+		
+		if (twoparts.length != 2) {
+			return;
+		}
+		
+		//Handling IPs: split init and end ip
+		String[]ips = twoparts[0].split("-");
+		for (int i = 0; i < ips.length; i++ ){
+			ips[i] = ips[i].trim();
+		}
+		
+		//Handlign IPs
+		
+		try {
+			cidr = new CIDR(ips[0], 24);
+		} catch (Exception e){}
+		
+		
+		
+		this.add(new IPref, cidr);
+		
+		
+		
 	}
 	
 	
