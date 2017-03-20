@@ -18,9 +18,10 @@ public class IPpack {
 	
 	
 	public void process(String buffered) {
-		StringTokenizer st = new StringTokenizer (buffered, "()-,");
-		while (st.hasMoreTokens()){
-			
+		
+		String [] bf = buffered.split(buffered, "()-,");
+		
+		while (st.hasMoreTokens()){			
 			String bf = st.nextToken().trim();
 			System.out.print(bf + "|");
 			
