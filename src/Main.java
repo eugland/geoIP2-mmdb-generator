@@ -85,22 +85,22 @@ public class Main {
 	
 	
 	public void test () {
-		CIDRUtils cidrUtils = new CIDRUtils();
-		CIDRUtils yolo = new CIDRUtils();
-		CIDRUtils last = new CIDRUtils();
-		CIDRUtils last1 = new CIDRUtils();
+		CIDR cidrUtils = new CIDR();
+		CIDR yolo = new CIDR();
+		CIDR last = new CIDR();
+		CIDR last1 = new CIDR();
 		try {
-			cidrUtils = new CIDRUtils("10.21.32.98/24");
-			yolo = new CIDRUtils("10.21.31.99/24");
-			last = new CIDRUtils("255.255.255.254/1");
-			last1 = new CIDRUtils("255.255.255.255/1");
+			cidrUtils = new CIDR("10.21.32.98/24");
+			yolo = new CIDR("10.21.31.99/24");
+			last = new CIDR("255.255.255.254/1");
+			last1 = new CIDR("255.255.255.255/1");
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
 		String networkAddress = cidrUtils.getNetworkAddress();
 		String broadcastAddress = cidrUtils.getBroadcastAddress();
 		
-		Set<CIDRUtils> yol =  new HashSet<CIDRUtils> ();
+		Set<CIDR> yol =  new HashSet<CIDR> ();
 		yol.add(cidrUtils);
 		yol.add(yolo);
 		yol.add(last);

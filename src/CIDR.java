@@ -33,7 +33,7 @@ import java.util.Objects;
  * A class that enables to get an IP range from CIDR specification. It supports
  * both IPv4 and IPv6.
  */
-public class CIDRUtils {
+public class CIDR {
     private String cidr;
     private String thekey;
 
@@ -42,11 +42,11 @@ public class CIDRUtils {
     private InetAddress endAddress;
     private int prefixLength;
 
-    public CIDRUtils(){
+    public CIDR(){
     	
     }
 
-    public CIDRUtils(String ip, int range) throws UnknownHostException{
+    public CIDR(String ip, int range) throws UnknownHostException{
     	cidr = ip + "/" + range;
     	inetAddress = InetAddress.getByName(ip);
         prefixLength = range;
@@ -54,7 +54,7 @@ public class CIDRUtils {
         calculate();
     }
 
-    public CIDRUtils(String cidr) throws UnknownHostException {
+    public CIDR(String cidr) throws UnknownHostException {
 
         this.cidr = cidr;
 

@@ -1,14 +1,12 @@
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-import java.util.StringTokenizer;
 import java.util.TreeSet;
 
 public class IPpack {
-	Map<IPref, TreeSet> ipMap;
+	Map<IPref, TreeSet<CIDR>> ipMap;
 	
 	public IPpack (){
-		ipMap = new HashMap<IPref, TreeSet> ();
+		ipMap = new HashMap<IPref, TreeSet<CIDR>> ();
 		
 		
 	}
@@ -18,7 +16,7 @@ public class IPpack {
 	
 	
 	public void process(String buffered) {
-		String [] bf = buffered.split("()-,");
+		String [] bf = buffered.split("\\(\\(-,");
 		
 		for (int i = 0; i < bf.length; i ++){
 			System.out.print(bf[i] + "|");
