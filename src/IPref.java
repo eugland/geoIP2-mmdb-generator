@@ -1,6 +1,7 @@
 
 public class IPref {
-	int id;
+	String refv;
+	String made;
 	
 	String dataCenter;
 	String environment;
@@ -33,8 +34,30 @@ public class IPref {
 		country = Country;
 		province = Province; 
 		city = City; 
-		
-		
+		refv = country+province+city;
+		made = country+", " + province+", "+city;
+	}
+	
+	public IPref (String Country,  String City){
+		country = Country;
+		city = City; 		
+		refv = country+city;
+		made = country+", "+city;
+	}
+	
+	@Override 
+	public String toString(){
+		return made;
+	}
+	
+	@Override 
+	public int hashCode (){
+		return refv.hashCode();
+	}
+	
+	@Override 
+	public boolean equals (Object o){
+		return o.hashCode() == this.hashCode();
 	}
 	
 	public IPref (){

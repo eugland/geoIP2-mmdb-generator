@@ -33,7 +33,7 @@ import java.util.Objects;
  * A class that enables to get an IP range from CIDR specification. It supports
  * both IPv4 and IPv6.
  */
-public class CIDR {
+public class CIDR implements Comparable{
 	public boolean exist;
     private String cidr;
     private String thekey;
@@ -76,7 +76,6 @@ public class CIDR {
             exist = true;
         } else {
             throw new IllegalArgumentException("not an valid CIDR format!");
-            exist = false; 
         }
     }
 
@@ -114,6 +113,11 @@ public class CIDR {
         this.thekey = this.startAddress.getHostAddress() + "/" + prefixLength;
     }
 
+    @Override
+    public String toString(){
+    	return cidr;
+    }
+    
     private byte[] toBytes(byte[] array, int targetSize) {
         int counter = 0;
         List<Byte> newArr = new ArrayList<Byte>();
@@ -173,4 +177,10 @@ public class CIDR {
 
         return (st == -1 || st == 0) && (te == -1 || te == 0);
     }
+
+
+	@Override
+	public int compareTo(Object o) {
+		return this.hashCode()-o.hashCode();
+	}
 }

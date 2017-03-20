@@ -1,5 +1,8 @@
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
@@ -46,6 +49,21 @@ public class IPpack {
 		} catch (Exception e){}
 		
 		
+		twoparts[1] = twoparts[1].replace (")", "" ).trim();
+		//System.out.println(twoparts[1]);
+		String[]strRef = twoparts[1].split(",");
+		for (int i = 0; i < strRef.length; i++ ){
+			strRef[i] = strRef[i].trim();
+			//System.out.print(strRef[i]+"|");
+		}
+		
+		if (strRef.length == 3) {
+			ref = new IPref (strRef[0],strRef[1],strRef[2]);
+		} else if (strRef.length == 2){
+			ref = new IPref (strRef[0],strRef[1]);
+		}
+		
+		
 		
 		if (cidr.exist && ref != null){
 			this.add(ref, cidr);
@@ -55,6 +73,19 @@ public class IPpack {
 		
 	}
 	
+	public void display(){
+		Iterator<Entry<IPref, TreeSet<CIDR>>> it = ipMap.entrySet().iterator();
+		while (it.hasNext()){
+			Map.Entry<IPref, TreeSet<CIDR>> pair = (Map.Entry<IPref, TreeSet<CIDR>>)it.next();
+			System.out.println(((IPref)pair.getKey()) + "\n===========================");
+			TreeSet<CIDR> set = (TreeSet<CIDR>)pair.getValue();
+			for (CIDR ci : set){
+				System.out.println("\t"+ci);
+			}
+			System.out.println();
+		}
+		
+	}
 	
 	private void add (IPref ref, CIDR ip) {
 		TreeSet<CIDR> set; 
