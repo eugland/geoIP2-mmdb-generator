@@ -23,10 +23,14 @@ package gen;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Scanner;
@@ -115,12 +119,30 @@ public class Main {
 	}
 	
 	private static void test () {
-		try (java.util.Scanner s = new java.util.Scanner(new java.net.URL("http://tools.ietf.org/rfc/rfc768.txt").openStream())) {
-		      System.out.println(s.useDelimiter("\\A").next());
-		    } catch (Exception e) {
-		    	e.printStackTrace();		    	
-		    }
+		executePost("https://www.baidu.com");
 		
+	}
+	
+	private static void executePost(String address) {
+		//Tis the calling address:
+		//http://maps.googleapis.com/maps/api/geocode/json?address=Toronto
+		
+		URL yahoo;
+		try {
+			yahoo = new URL(address);
+	        URLConnection yc = yahoo.openConnection();
+	        BufferedReader in = new BufferedReader(
+	                                new InputStreamReader(
+	                                yc.getInputStream()));
+	        String inputLine;
+	
+	        while ((inputLine = in.readLine()) != null) 
+	            System.out.println(inputLine);
+	        in.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
