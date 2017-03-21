@@ -1,3 +1,4 @@
+package gen;
 
 public class IPref {
 	String refv;
