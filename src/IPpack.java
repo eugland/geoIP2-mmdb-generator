@@ -71,15 +71,21 @@ public class IPpack {
 		while (it.hasNext()){
 			Map.Entry<IPref, TreeSet<CIDR>> pair = (Map.Entry<IPref, TreeSet<CIDR>>)it.next();
 			
-			String yoloBuff  = ((IPref)pair.getKey())+"";
-			System.out.println(yoloBuff);
-			w.println(yoloBuff);
+			//getting the ref Object
+			IPref ref = ((IPref)pair.getKey());
+			//String yoloBuff = ref+"";
+			//System.out.println(yoloBuff);
+			//w.println(yoloBuff);
 			
+			
+			
+			
+			//printing each items
 			TreeSet<CIDR> set = (TreeSet<CIDR>)pair.getValue();
 			for (CIDR ci : set){
-				String YoloBuff = "\t"+ci;
+				String YoloBuff = "\t"+"'" + ci + "', ";				
 				w.println(YoloBuff);
-				System.out.println(YoloBuff);
+				w.print(ref.itemReturn());
 			}
 			w.flush();
 			System.out.println();
