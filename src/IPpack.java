@@ -1,4 +1,5 @@
 import java.io.BufferedWriter;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -65,29 +66,25 @@ public class IPpack {
 		
 	}
 	
-	public boolean write (BufferedWriter w){
-		try {
-			Iterator<Entry<IPref, TreeSet<CIDR>>> it = ipMap.entrySet().iterator();
-			while (it.hasNext()){
-				Map.Entry<IPref, TreeSet<CIDR>> pair = (Map.Entry<IPref, TreeSet<CIDR>>)it.next();
-				String yoloBuff  = ((IPref)pair.getKey()) + "\n===========================";
-				System.out.println(yoloBuff);
-				w.write(yoloBuff);
-				w.newLine();
-				TreeSet<CIDR> set = (TreeSet<CIDR>)pair.getValue();
-				for (CIDR ci : set){
-					String YoloBuff = "\t"+ci;
-					w.write(YoloBuff);
-					System.out.println(YoloBuff);
-					w.newLine();
-				}
-				System.out.println();
+	public boolean write (PrintWriter w) throws Exception {
+		Iterator<Entry<IPref, TreeSet<CIDR>>> it = ipMap.entrySet().iterator();
+		while (it.hasNext()){
+			Map.Entry<IPref, TreeSet<CIDR>> pair = (Map.Entry<IPref, TreeSet<CIDR>>)it.next();
+			
+			String yoloBuff  = ((IPref)pair.getKey())+"";
+			System.out.println(yoloBuff);
+			w.println(yoloBuff);
+			
+			TreeSet<CIDR> set = (TreeSet<CIDR>)pair.getValue();
+			for (CIDR ci : set){
+				String YoloBuff = "\t"+ci;
+				w.println(YoloBuff);
+				System.out.println(YoloBuff);
 			}
-			return true;
-		}catch (Exception e){
-			return false;
+			w.flush();
+			System.out.println();
 		}
-		
+		return true;		
 	}
 	
 	private void add (IPref ref, CIDR ip) {

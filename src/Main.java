@@ -1,6 +1,7 @@
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.net.UnknownHostException;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -14,7 +15,7 @@ public class Main {
 	String answers[]= new String[questions.length]; 
 	Scanner scan;
 	Scanner in;
-	BufferedWriter fileOut;
+	PrintWriter fileOut;
 	IPpack ippack; 
 	
 	Main (){
@@ -26,21 +27,32 @@ public class Main {
 		
 		try {
 			File file = new File (answers[0]);
-			fileOut = new BufferedWriter (new FileWriter (new File (answers[1])));
+			fileOut = new PrintWriter (new BufferedWriter (new FileWriter (new File (answers[1]) ) ) );
 			in = new Scanner (file); 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 		if (answers[0].equalsIgnoreCase("keyIN")){
+			
 			consoleReadin();
 		}else {
+			
 			fileReadin ();
 		}
 		
-		
-		ippack.write(fileOut);
-		
+		try {
+			fileOut.println(yo.ini_command);
+			
+			ippack.write(fileOut);
+			fileOut.write(yo.end_command);
+			fileOut.close();
+			
+			
+			System.out.println("output?");
+		} catch (Exception e){
+			System.out.println(e);
+		}
 		
 		
 		//debug use
@@ -73,50 +85,15 @@ public class Main {
 		for (int i = 0; i < questions.length; i++){
 			System.out.println(questions[i]);
 			answers[i] = scan.nextLine();
-		}	
-		
+		}			
 	}
 	
 	public static void main (String args []) {
 		new Main ();
 	}
 	
-	
-	public void test () {
-		CIDR cidrUtils = new CIDR();
-		CIDR yolo = new CIDR();
-		CIDR last = new CIDR();
-		CIDR last1 = new CIDR();
-		try {
-			cidrUtils = new CIDR("10.21.32.98/24");
-			yolo = new CIDR("10.21.31.99/24");
-			last = new CIDR("255.255.255.254/1");
-			last1 = new CIDR("255.255.255.255/1");
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		}
-		String networkAddress = cidrUtils.getNetworkAddress();
-		String broadcastAddress = cidrUtils.getBroadcastAddress();
-		
-		Set<CIDR> yol =  new HashSet<CIDR> ();
-		yol.add(cidrUtils);
-		yol.add(yolo);
-		yol.add(last);
-		yol.add(last1);
-		
-		System.out.println(networkAddress + " " + broadcastAddress); 
-		System.out.println(cidrUtils.hashCode());
-		System.out.println(cidrUtils.getRange());
-		System.out.println(cidrUtils.getNetIP());
-		System.out.println(cidrUtils.hashCode() + " " + yolo.hashCode() + " " + last.hashCode() + last1.hashCode());
-		System.out.println(last.equals (last1));
-		System.out.println(cidrUtils.equals (yolo));
-		System.out.println(yol.size());
-	}
-	
-	
 	static class yo{
-		String ini_command =  
+		static String ini_command =  
 		  "use MaxMind::DB::Writer::Tree;"
 		+ "my %types = ("
 		+ "		color => 'utf8_string',"
@@ -135,7 +112,7 @@ public class Main {
 	 	+ "$tree->insert_network(";
 	 	
 	 	
-	 	String mid_command = 
+	 	static String mid_command = 
 	 	  "		    '2001:db8::/48',								"
 	 	+ "		    {												"
 	 	+ "		        color => 'blue',							"
@@ -144,7 +121,7 @@ public class Main {
 	 	+ "		    },												";
 	 	
 	 	
-	 	String end_command = 
+	 	static String end_command = 
 	 	  "		);"	 	
 	 	+ "		open my $fh, '>:raw', '/path/to/my-ip-data.mmdb';"
 	 	+ "		$tree->write_tree($fh);";
