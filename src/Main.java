@@ -2,10 +2,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.net.UnknownHostException;
-import java.util.HashSet;
 import java.util.Scanner;
-import java.util.Set;
 
 public class Main {
 	String questions[] = {
@@ -78,8 +75,8 @@ public class Main {
 	
 	private void guide (boolean isTesting){
 		if (isTesting) {
-			answers[0] = "C:\\Users\\eugene\\Desktop\\startup.txt";
-			answers[1] = "C:\\Users\\eugene\\Desktop\\Tidi.txt";
+			answers[0] = "raw.txt";
+			answers[1] = "script.pl";
 			return;
 		}
 		for (int i = 0; i < questions.length; i++){
@@ -94,22 +91,22 @@ public class Main {
 	
 	static class yo{
 		static String ini_command =  
-		  "use MaxMind::DB::Writer::Tree;"
-		+ "my %types = ("
-		+ "		color => 'utf8_string',"
-		+ "		dogs  => [ 'array', 'utf8_string' ],"
-		+ "		size  => 'uint16',"
-		+ ");"				
+		  "use MaxMind::DB::Writer::Tree;\n"
+		+ "my %types = (\n"
+		+ "	color => 'utf8_string',\n"
+		+ "	dogs  => [ 'array', 'utf8_string' ],\n"
+		+ "	size  => 'uint16',\n"
+		+ ");\n\n"				
 				
-		+ "my $tree = MaxMind::DB::Writer::Tree->new("
-		+ "		ip_version            => 4,"
-		+ "		record_size           => 24,"
-		+ "		database_type         => 'My-IP-Data',"
-		+ "		languages             => ['en'],"
-		+ "		description           => { en => 'My database of IP data' },"
-		+ "		map_key_type_callback => sub { $types{ $_[0] } },"
-		+ ");" 
-	 	+ "$tree->insert_network(";
+		+ "my $tree = MaxMind::DB::Writer::Tree->new(\n"
+		+ "	ip_version            => 4,\n"
+		+ "	record_size           => 24,\n"
+		+ "	database_type         => 'My-IP-Data',\n"
+		+ "	languages             => ['en'],\n"
+		+ "	description           => { en => 'My database of IP data' },\n"
+		+ "	map_key_type_callback => sub { $types{ $_[0] } },\n"
+		+ ");\n" 
+	 	+ "$tree->insert_network(\n";
 	 	
 	 	
 	 	static String mid_command = 
@@ -122,10 +119,10 @@ public class Main {
 	 	
 	 	
 	 	static String end_command = 
-	 	  "		);"	 	
-	 	+ "		open my $fh, '>:raw', '/path/to/my-ip-data.mmdb';"
-	 	+ "		$tree->write_tree($fh);";
-				
+	 	  ");\n"	 	
+	 	+ "open my $fh, '>:raw', 'my-ip-data.mmdb';\n"
+	 	+ "$tree->write_tree($fh);\n"
+	 	+ "print \"writing finished \\n;\"";
 	}
 	
 	

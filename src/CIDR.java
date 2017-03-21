@@ -1,7 +1,7 @@
 /*
 * The MIT License
 *
-* Copyright (c) 2013 Edin Dazdarevic (edin.dazdarevic@gmail.com)
+* Copyright (c) 2013 Eugene Wang (euhome.github.io)
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
 * in the Software without restriction, including without limitation the rights
@@ -27,13 +27,12 @@ import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A class that enables to get an IP range from CIDR specification. It supports
  * both IPv4 and IPv6.
  */
-public class CIDR implements Comparable{
+public class CIDR implements Comparable<CIDR>{
 	public boolean exist;
     private String cidr;
     private String thekey;
@@ -180,7 +179,7 @@ public class CIDR implements Comparable{
 
 
 	@Override
-	public int compareTo(Object o) {
+	public int compareTo(CIDR o) {
 		return this.hashCode()-o.hashCode();
 	}
 }
