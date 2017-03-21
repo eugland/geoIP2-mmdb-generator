@@ -94,14 +94,14 @@ public class IPref {
 		
 		String bf = "\t{";
 		bf = bf + "\n\t	location  =>  [" + geo.longitude + "," + geo.lattitude + "]"
-				+ "\n\t	latitude => '" + geo.lattitude
-				+ "'\n\t 	longitude => '" + geo.longitude
-				+ "'\n\t 	country => '" + country
-				+ "'\n\t 	region_name => '" + province
- 				+ "'\n\t 	city_name => '" + city
- 				+ "'\n\t 	timezone => 'America/New_York'"
-				+ "";        
-		return bf + " \n\t},\n\n";
+				+ ",\n\t	latitude => '" + geo.lattitude
+				+ "',\n\t 	longitude => '" + geo.longitude
+				+ "',\n\t 	country => '" + country
+				+ "',\n\t 	region_name => '" + province
+ 				+ "',\n\t 	city_name => '" + city
+ 				+ "',\n\t 	timezone => 'America/New_York'"
+				+ ", \n\t},\n\n"    ;
+		return bf;
 	}
 	
 	@Override 
