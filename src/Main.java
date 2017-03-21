@@ -123,7 +123,7 @@ public class Main {
 	 	
 	 	static String end_command = 
 	 	  "		);"	 	
-	 	+ "		open my $fh, '>:raw', '/path/to/my-ip-data.mmdb';"
+	 	+ "		open my $fh, '>:raw', 'my-ip-data.mmdb';"
 	 	+ "		$tree->write_tree($fh);";
 				
 	}

@@ -21,7 +21,7 @@ To use the mmdb generator:
 > git clone https://github.com/Kamagawa/geoIP2-mmdb-generator.git
 > cd geoIP2-mmdb-generator
 ```
-2. Copy and paste the source file into the project folder, the source file (raw.txt) will have IP addresses and info in the following format: 
+2. Copy and paste the source file into the project folder, the source file (raw.txt) will have IP addresses and info in the following format: (as of right now, you need to modify the import file path in main.java)
 raw.txt
 ```sh
  10.125.25.0 - 10.125.25.255 (Canada, Ontario, Toronto)
@@ -31,4 +31,4 @@ raw.txt
 ```sh
  >perl script.pl
 ```
-5. If the compilation ran successfully, you will see a file named "internal-databse.mmdb"
+5. If the compilation ran successfully, you will see a file named "my-ip-data.mmdb.mmdb"
