@@ -25,20 +25,18 @@ package gen;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class Main {
+	
 	String questions[] = {
 		"What is the path for your file?  (type 0 for Command prompt manual input)", 
 		"Where do you want to store the script? ", 
 	};
-	String answers[]= new String[questions.length]; 
+	String answers[]= new String[questions.length];
+	
 	Scanner scan;
 	Scanner in;
 	PrintWriter fileOut;
@@ -50,7 +48,8 @@ public class Main {
 		ippack = new IPpack();
 		postalPack = new PostalPack ();
 		scan = new Scanner (System.in);
-		
+		answers[0] = "capost.csv";
+		answers[1] = "dict.yaml";
 		guide(true);					//is it testing? 
 		
 		try {
@@ -68,6 +67,7 @@ public class Main {
 			fileReadin ();
 		}
 		
+		/*
 		try {
 			fileOut.println(yo.ini_command);
 			
@@ -78,6 +78,9 @@ public class Main {
 		} catch (Exception e){
 			System.out.println(e);
 		}
+		*/
+		
+		//postalPack.display();
 		
 		
 		//debug use
@@ -86,14 +89,20 @@ public class Main {
 	
 	private void fileReadin (){
 		String buffered = "init";
+		int count =0;
 		while (in.hasNextLine()) {
 			buffered = in.nextLine();
 			//postalCode
+			postalPack.add(buffered, fileOut);
 			
-			
+			count++;
+			if (count %1000 ==0){
+				System.out.println(count);
+			}
 			//ipPack
-			ippack.process (buffered);
+			//ippack.process (buffered);
 		}
+		fileOut.close();
 	}
 	
 	private void consoleReadin(){
@@ -107,8 +116,6 @@ public class Main {
 	
 	private void guide (boolean isTesting){
 		if (isTesting) {
-			answers[0] = "raw.txt";
-			answers[1] = "script.pl";
 			return;
 		}
 		for (int i = 0; i < questions.length; i++){
@@ -118,32 +125,11 @@ public class Main {
 	}
 	
 	public static void main (String args []) {
-		//new Main ();
-		test();
+		new Main ();
 	}
 	
-	private static void test () {
-		executePost("https://www.baidu.com");
-		
-	}
+
 	
-	private static void executePost(String address) {
-		//Tis the calling address:
-		//http://maps.googleapis.com/maps/api/geocode/json?address=Toronto
-		JSONObject rawResponse = null;
-		
-		try {
-			rawResponse = new JsonReader ("http://maps.googleapis.com/maps/api/geocode/json?address=L4C6S8").readJsonFromUrl();
-		} catch (JSONException | IOException e) {
-			e.printStackTrace();
-		}
-		
-		
-		JSONArray jsArray =  rawResponse.getJSONArray("results");
-		JSONObject jsItemLocation = jsArray.getJSONObject(0).getJSONObject("geometry").getJSONObject("location");
-		
-	    System.out.println(jsItemLocation);
-	}
 	
 	
 	static class yo{

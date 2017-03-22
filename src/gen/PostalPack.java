@@ -40,30 +40,14 @@ public class PostalPack {
 	}
 		
 	
-	public void add (String buffered) {
-		
-		JSONObject location = new JsonReader ().getGoogleLatLon(buffered.replace(" ", ""));
-		long lng =  location.getLong("lng");
-		long lat =  location.getLong("lng");
-		postalMap.put(buffered, lng+":"+lat);
-		
-		
+	public void add (String buffered, PrintWriter w) {
+		String bf[] = buffered.split(",");
+		//System.out.print(bf[0] + "|" + bf[2] + ":" + bf[3]);		
+		w.println ("\""+bf[0]+"\":\""+bf[2]+":"+bf[3]+"\"");	
+		w.flush();
 	}
 	
-	public void display (){
-		Iterator<Entry <String, String>> it = postalMap.entrySet().iterator();
-		while (it.hasNext()){
-			Map.Entry<String, String> pair = (Map.Entry<String, String>)it.next();
-			
-			//getting the ref Object
-			System.out.println (pair.getKey()+" =>" + pair.getValue());
-				
-		}	
-	}
 	
-	public boolean write (PrintWriter w) throws Exception {
-		return true;		
-	}
 	
 	
 
