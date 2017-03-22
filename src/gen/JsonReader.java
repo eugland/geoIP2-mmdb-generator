@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.Charset;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,6 +20,10 @@ public class JsonReader {
 	public JsonReader (String recurl){
 		url = recurl;
 	}
+	public JsonReader (){
+		url = "http://maps.googleapis.com/maps/api/geocode/json?address=";
+	}
+	
 
 	String readAll() throws IOException {
 		is = new URL(url).openStream();
@@ -43,6 +48,25 @@ public class JsonReader {
 	      is.close();
 	    }
 	  }
+	
+	JSONObject getGoogleLatLon (String address){
+		//Tis the calling address:
+		//http://maps.googleapis.com/maps/api/geocode/json?address=Toronto
+		JSONObject rawResponse = null;
+		
+		
+		try {
+			rawResponse = new JsonReader (url+address).readJsonFromUrl();
+		} catch (JSONException | IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		JSONArray jsArray =  rawResponse.getJSONArray("results");
+		JSONObject jsItemLocation = jsArray.getJSONObject(0).getJSONObject("geometry").getJSONObject("location");
+		
+	    return jsItemLocation;
+	}
 
  
 }

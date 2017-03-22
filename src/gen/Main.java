@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,10 +43,12 @@ public class Main {
 	Scanner in;
 	PrintWriter fileOut;
 	IPpack ippack; 
+	PostalPack postalPack;
 	
 	Main (){
 		super();
 		ippack = new IPpack();
+		postalPack = new PostalPack ();
 		scan = new Scanner (System.in);
 		
 		guide(true);					//is it testing? 
@@ -85,6 +88,10 @@ public class Main {
 		String buffered = "init";
 		while (in.hasNextLine()) {
 			buffered = in.nextLine();
+			//postalCode
+			
+			
+			//ipPack
 			ippack.process (buffered);
 		}
 	}
@@ -123,21 +130,19 @@ public class Main {
 	private static void executePost(String address) {
 		//Tis the calling address:
 		//http://maps.googleapis.com/maps/api/geocode/json?address=Toronto
-		JsonReader  jr = new JsonReader ("http://maps.googleapis.com/maps/api/geocode/json?address=Toronto");
-		String yolo = null;
-		JSONObject json = null;
+		JSONObject rawResponse = null;
 		
 		try {
-			json = jr.readJsonFromUrl();
-			yolo = jr.readAll ();
+			rawResponse = new JsonReader ("http://maps.googleapis.com/maps/api/geocode/json?address=L4C6S8").readJsonFromUrl();
 		} catch (JSONException | IOException e) {
 			e.printStackTrace();
 		}
 		
 		
-		JSONObject js = (JSONObject) json.get("results");
-		js.getJSONArray(key); 
-	    System.out.println(js);
+		JSONArray jsArray =  rawResponse.getJSONArray("results");
+		JSONObject jsItemLocation = jsArray.getJSONObject(0).getJSONObject("geometry").getJSONObject("location");
+		
+	    System.out.println(jsItemLocation);
 	}
 	
 	
