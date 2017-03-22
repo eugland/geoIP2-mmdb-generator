@@ -21,19 +21,16 @@
 * */
 package gen;
 
-import java.io.BufferedReader;
+
 import java.io.BufferedWriter;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Scanner;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Main {
 	String questions[] = {
@@ -126,23 +123,21 @@ public class Main {
 	private static void executePost(String address) {
 		//Tis the calling address:
 		//http://maps.googleapis.com/maps/api/geocode/json?address=Toronto
+		JsonReader  jr = new JsonReader ("http://maps.googleapis.com/maps/api/geocode/json?address=Toronto");
+		String yolo = null;
+		JSONObject json = null;
 		
-		URL yahoo;
 		try {
-			yahoo = new URL(address);
-	        URLConnection yc = yahoo.openConnection();
-	        BufferedReader in = new BufferedReader(
-	                                new InputStreamReader(
-	                                yc.getInputStream()));
-	        String inputLine;
-	
-	        while ((inputLine = in.readLine()) != null) 
-	            System.out.println(inputLine);
-	        in.close();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			json = jr.readJsonFromUrl();
+			yolo = jr.readAll ();
+		} catch (JSONException | IOException e) {
 			e.printStackTrace();
 		}
+		
+		
+		JSONObject js = (JSONObject) json.get("results");
+		js.getJSONArray(key); 
+	    System.out.println(js);
 	}
 	
 	
