@@ -90,6 +90,7 @@ public class Main {
 	private void fileReadin (){
 		String buffered = "init";
 		int count =0;
+		fileOut.println("{");
 		while (in.hasNextLine()) {
 			buffered = in.nextLine();
 			//postalCode
@@ -102,6 +103,7 @@ public class Main {
 			//ipPack
 			//ippack.process (buffered);
 		}
+		fileOut.println("}");
 		fileOut.close();
 	}
 	

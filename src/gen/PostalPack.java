@@ -43,7 +43,7 @@ public class PostalPack {
 	public void add (String buffered, PrintWriter w) {
 		String bf[] = buffered.split(",");
 		//System.out.print(bf[0] + "|" + bf[2] + ":" + bf[3]);		
-		w.println ("\""+bf[0]+"\":\""+bf[2]+":"+bf[3]+"\"");	
+		w.println ("\""+bf[0]+"\":\""+bf[2]+","+bf[3]+"\",");	
 		w.flush();
 	}
 	
