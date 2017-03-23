@@ -52,6 +52,7 @@ public class Main {
 		
 		if (answers[0].contains("ip")){
 			System.out.println("ip");
+			
 			new IPpack().process(in, out);
 		} else if (answers[0].contains("post")){
 			System.out.println("post");

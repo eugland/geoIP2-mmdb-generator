@@ -72,10 +72,21 @@ public class IPref {
 	}
 	
 	public void complete (){
-		JSONObject jsobj = new JsonReader ().getGoogleLatLon(made.replace(" ", ""));
+		int tries = 0; 
+		boolean fail = false; 
+		do {
+			try {
+			JSONObject jsobj = new JsonReader ().getGoogleLatLon(made.replace(" ", ""));
+			lat = jsobj.getLong("lat");
+			lng = jsobj.getLong("lng");
+			fail = false;
+			} catch (Exception e){
+				tries ++; 
+				fail = true;
+				System.out.println("Catch " +tries + ", at " + made);
+			}
+		} while (fail && tries < 10);
 		
-		lat = jsobj.getLong("lat");
-		lng = jsobj.getLong("lng");
 	}
 	
 	public String itemReturn (){

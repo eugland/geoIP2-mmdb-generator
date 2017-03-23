@@ -40,15 +40,19 @@ public class IPpack {
 	}
 	
 	public void process (Scanner in, PrintWriter out){
+		
 		readin(in);
 		write(out);
 	}
 		
 	private void readin (Scanner in){
 		String buffered = "init";
+		double iteration=0; 
 		while (in.hasNextLine()) {
+			System.out.print(iteration*100/3737+"% ");
 			buffered = in.nextLine();			
 			produce (buffered);
+			iteration++;
 		}			
 	}
 	
