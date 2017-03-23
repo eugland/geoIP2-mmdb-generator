@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-
 public class Main {	
 	String questions[] = {
 		"What is the path for your file?  (type 0 for Command prompt manual input)", 
@@ -74,5 +73,10 @@ public class Main {
 	
 	public static void main (String args []) throws Exception {
 		new Main ();
+		
 	}	
+	
+	private static void ex (){
+		
+	}
 }

@@ -21,6 +21,8 @@
 * */
 package gen;
 
+import org.json.JSONObject;
+
 public class IPref {
 	String refv;
 	String made;
@@ -29,10 +31,10 @@ public class IPref {
 	String environment;
 	String desc;
 	
-	String country;
-	String province;
-	String city;
-	String timeZone; 
+	String country="";
+	String province ="";
+	String city ="";
+	String timeZone = ""; 
 	
 	String CountryCode0;
 	String CountryCode1;
@@ -41,7 +43,8 @@ public class IPref {
 	String postalCode;
 	String areaCode;
 	
-	Geo geo;	
+	long lat;
+	long lng;
 	
 	static class Geo{
 		double lattitude = 0;
@@ -56,20 +59,24 @@ public class IPref {
 	public IPref (String Country, String Province, String City){
 		country = Country;
 		province = Province; 
-		city = City; 
-		refv = country+province+city;
+		city = City; 		
 		made = country+", " + province+", "+city;
-		geo = new Geo (0.0, 0.0);
+		init();		
 	}
 	
 	public IPref (String Country,  String City){
 		country = Country;
 		city = City; 		
-		refv = country+city;
 		made = country+", "+city;
-		province = "";
-		made = country+", " + province+", "+city;
-		geo = new Geo (0.0, 0.0);
+		init();		
+	}
+	
+	private void init(){
+		System.out.println(made);
+		refv = country+province+city;
+		JSONObject jsobj = new JsonReader ().getGoogleLatLon(made.replace(" ", ""));
+		lat = jsobj.getLong("lat");
+		lng = jsobj.getLong("lng");
 	}
 	
 	public String itemReturn (){
@@ -115,9 +122,9 @@ public class IPref {
 	     */
 		
 		String bf = "\t{";
-		bf = bf + "\n\t	location  =>  [" + geo.longitude + "," + geo.lattitude + "]"
-				+ ",\n\t	latitude => '" + geo.lattitude
-				+ "',\n\t 	longitude => '" + geo.longitude
+		bf = bf + "\n\t	location  =>  [" + lng + "," + lat + "]"
+				+ ",\n\t	latitude => '" + lat
+				+ "',\n\t 	longitude => '" + lng
 				+ "',\n\t 	country => '" + country
 				+ "',\n\t 	region_name => '" + province
  				+ "',\n\t 	city_name => '" + city
