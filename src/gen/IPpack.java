@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Scanner;
 import java.util.TreeSet;
 
 public class IPpack {
@@ -38,6 +39,13 @@ public class IPpack {
 		ipMap = new HashMap<IPref, TreeSet<CIDR>> ();	
 	}
 		
+	public void readin (Scanner in){
+		String buffered = "init";
+		while (in.hasNextLine()) {
+			buffered = in.nextLine();			
+			process (buffered);
+		}			
+	}
 	
 	public void process(String buffered) {
 		CIDR cidr = new CIDR();
@@ -82,20 +90,17 @@ public class IPpack {
 		
 		if (cidr.exist && ref != null){
 			this.add(ref, cidr);
-		}
-		
-		
-		
+		}		
 	}
 	
 	public boolean write (PrintWriter w) throws Exception {
+		w.println(ini_command);
 		Iterator<Entry<IPref, TreeSet<CIDR>>> it = ipMap.entrySet().iterator();
 		while (it.hasNext()){
 			Map.Entry<IPref, TreeSet<CIDR>> pair = (Map.Entry<IPref, TreeSet<CIDR>>)it.next();
 			
 			//getting the ref Object
 			IPref ref = ((IPref)pair.getKey());
-			
 			
 			
 			//printing each items
@@ -106,8 +111,8 @@ public class IPpack {
 				w.print(ref.itemReturn());
 			}
 			w.flush();
-			//System.out.println();
 		}
+		w.println(end_command);
 		return true;		
 	}
 	
@@ -117,6 +122,41 @@ public class IPpack {
 		set.add(ip);
 		ipMap.put(ref, set);
 	}
+
+	
+	static String ini_command =  
+	  "use MaxMind::DB::Writer::Tree;\n"
+	+ "my %types = (\n"
+	+ "	color => 'utf8_string',\n"
+	+ "	dogs  => [ 'array', 'utf8_string' ],\n"
+	+ "	size  => 'uint16',\n"
+	+ ");\n\n"				
+			
+	+ "my $tree = MaxMind::DB::Writer::Tree->new(\n"
+	+ "	ip_version            => 4,\n"
+	+ "	record_size           => 24,\n"
+	+ "	database_type         => 'My-IP-Data',\n"
+	+ "	languages             => ['en'],\n"
+	+ "	description           => { en => 'My database of IP data' },\n"
+	+ "	map_key_type_callback => sub { $types{ $_[0] } },\n"
+	+ ");\n" 
+ 	+ "$tree->insert_network(\n";
+ 	
+ 	
+ 	static String mid_command = 
+ 	  "		    '2001:db8::/48',								"
+ 	+ "		    {												"
+ 	+ "		        color => 'blue',							"
+ 	+ "		        dogs  => [ 'Fido', 'Ms. Pretty Paws' ],		"
+ 	+ "		        size  => 42,								"
+ 	+ "		    },												";
+ 	
+ 	
+ 	static String end_command = 
+ 	  ");\n"	 	
+ 	+ "open my $fh, '>:raw', 'my-ip-data.mmdb';\n"
+ 	+ "$tree->write_tree($fh);\n"
+ 	+ "print \"writing finished \\n;\"";
 
 	
 }

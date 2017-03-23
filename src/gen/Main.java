@@ -35,7 +35,10 @@ public class Main {
 		"What is the path for your file?  (type 0 for Command prompt manual input)", 
 		"Where do you want to store the script? ", 
 	};
-	String answers[]= new String[questions.length];
+	String answers[] = {
+			"raw.txt",
+			"script.pl"
+	};
 	
 	Scanner scan;
 	Scanner in;
@@ -43,42 +46,28 @@ public class Main {
 	IPpack ippack; 
 	PostalPack postalPack;
 	
-	Main (){
+	Main () throws Exception {
 		super();
 		ippack = new IPpack();
-		postalPack = new PostalPack ();
 		scan = new Scanner (System.in);
-		answers[0] = "raw.txt";
-		answers[1] = "script.pl";
-		guide(true);					//is it testing? 
+		//guide(); //is it testing? 
 		
-		try {
-			fileOut = new PrintWriter (new BufferedWriter (new FileWriter (new File (answers[1]) ) ) );
-			in = new Scanner (new File (answers[0])); 
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-		}
-		if (answers[0].equalsIgnoreCase("keyIN")){
-			
-			consoleReadin();
-		}else {
-			
-			fileReadin ();
-		}
+		fileOut = new PrintWriter (new BufferedWriter (new FileWriter (new File (answers[1]) ) ) );
+		in = new Scanner (new File (answers[0])); 
 		
 		
-		try {
-			fileOut.println(yo.ini_command);
-			
+		
+		if (answers[0].contains("raw")){
+			System.out.println("raw");
+			ippack.readin(in);
 			ippack.write(fileOut);
-			fileOut.write(yo.end_command);
-			fileOut.close();
-			
-		} catch (Exception e){
-			System.out.println(e);
 		}
 		
+			
+		in.close();
+		fileOut.close();
+			
+	
 		
 		
 		
@@ -87,78 +76,15 @@ public class Main {
 		System.out.print(answers[0] + " "+ answers[1]);
 	}
 	
-	private void fileReadin (){
-		String buffered = "init";
-		int count =0;
-		while (in.hasNextLine()) {
-			buffered = in.nextLine();			
-			ippack.process (buffered);
-		}
-	}
-	
-	private void consoleReadin(){
-		String buffered = "init";
-		while (!buffered.equalsIgnoreCase("exit")) {
-			buffered = scan.nextLine();
-			System.out.println (buffered);
-		}
-	}
-	
-	
-	private void guide (boolean isTesting){
-		if (isTesting) {
-			return;
-		}
+		
+	private void guide (){
 		for (int i = 0; i < questions.length; i++){
 			System.out.println(questions[i]);
 			answers[i] = scan.nextLine();
 		}			
 	}
 	
-	public static void main (String args []) {
+	public static void main (String args []) throws Exception {
 		new Main ();
-	}
-	
-
-	
-	
-	
-	static class yo{
-		static String ini_command =  
-		  "use MaxMind::DB::Writer::Tree;\n"
-		+ "my %types = (\n"
-		+ "	color => 'utf8_string',\n"
-		+ "	dogs  => [ 'array', 'utf8_string' ],\n"
-		+ "	size  => 'uint16',\n"
-		+ ");\n\n"				
-				
-		+ "my $tree = MaxMind::DB::Writer::Tree->new(\n"
-		+ "	ip_version            => 4,\n"
-		+ "	record_size           => 24,\n"
-		+ "	database_type         => 'My-IP-Data',\n"
-		+ "	languages             => ['en'],\n"
-		+ "	description           => { en => 'My database of IP data' },\n"
-		+ "	map_key_type_callback => sub { $types{ $_[0] } },\n"
-		+ ");\n" 
-	 	+ "$tree->insert_network(\n";
-	 	
-	 	
-	 	static String mid_command = 
-	 	  "		    '2001:db8::/48',								"
-	 	+ "		    {												"
-	 	+ "		        color => 'blue',							"
-	 	+ "		        dogs  => [ 'Fido', 'Ms. Pretty Paws' ],		"
-	 	+ "		        size  => 42,								"
-	 	+ "		    },												";
-	 	
-	 	
-	 	static String end_command = 
-	 	  ");\n"	 	
-	 	+ "open my $fh, '>:raw', 'my-ip-data.mmdb';\n"
-	 	+ "$tree->write_tree($fh);\n"
-	 	+ "print \"writing finished \\n;\"";
-
-	}
-	
-	
+	}	
 }
