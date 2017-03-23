@@ -27,34 +27,17 @@ public class IPref {
 	String refv;
 	String made;
 	
-	String dataCenter;
-	String environment;
-	String desc;
-	
 	String country="";
 	String province ="";
 	String city ="";
 	String timeZone = ""; 
-	
-	String CountryCode0;
-	String CountryCode1;
-	String CountryCode2;
-	
+		
 	String postalCode;
 	String areaCode;
 	
 	long lat;
 	long lng;
 	
-	static class Geo{
-		double lattitude = 0;
-		double longitude = 0; 
-		
-		private Geo (double x, double y){
-			lattitude = x;
-			longitude = y;
-		}		
-	}
 	
 	public IPref (String Country, String Province, String City){
 		country = Country;
@@ -72,11 +55,23 @@ public class IPref {
 	}
 	
 	private void init(){
-		System.out.println(made);
+		mader();
+		
 		refv = country+province+city;
 		JSONObject jsobj = new JsonReader ().getGoogleLatLon(made.replace(" ", ""));
+		System.out.println(made + " | " + jsobj) ;
 		lat = jsobj.getLong("lat");
 		lng = jsobj.getLong("lng");
+	}
+	
+	private void mader (){
+		if (city.contains("GCC")){
+			made = country+", " + province+", "+"guelph";
+		} else if (province == ""){
+			made = country+", " +city;
+		} else {
+			made = country+", " + province+", "+city;
+		}			
 	}
 	
 	public String itemReturn (){
