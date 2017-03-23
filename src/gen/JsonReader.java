@@ -37,12 +37,13 @@ public class JsonReader {
 	String url;
 	BufferedReader rd;
 	InputStream is;
+	String key = "&key=AIzaSyB3LWsoAqL0EQ5NhKCxZZvbg21YftPFP9Q";
 	
 	public JsonReader (String recurl){
 		url = recurl;
 	}
 	public JsonReader (){
-		url = "http://maps.googleapis.com/maps/api/geocode/json?address=";
+		url = "https://maps.googleapis.com/maps/api/geocode/json?address=";
 	}
 	
 
@@ -75,12 +76,12 @@ public class JsonReader {
 		//http://maps.googleapis.com/maps/api/geocode/json?address=Toronto
 		JSONObject rawResponse = null;
 		try {
-			rawResponse = new JsonReader (url+address).readJsonFromUrl();
+			rawResponse = new JsonReader (url+address+key).readJsonFromUrl();
+			//System.out.println(url+address+key);
 		} catch (JSONException | IOException e) {
 			e.printStackTrace();
 		}
 		JSONArray jsArray =  rawResponse.getJSONArray("results");
-		System.out.println(address+ "|"+jsArray);
 		JSONObject jsItemLocation = jsArray.getJSONObject(0).getJSONObject("geometry").getJSONObject("location");
 	    return jsItemLocation;
 	}

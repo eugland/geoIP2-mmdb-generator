@@ -35,8 +35,8 @@ public class IPref {
 	String postalCode;
 	String areaCode;
 	
-	long lat;
-	long lng;
+	double lat;
+	double lng;
 	
 	
 	public IPref (String Country, String Province, String City){
@@ -77,60 +77,30 @@ public class IPref {
 		do {
 			try {
 			JSONObject jsobj = new JsonReader ().getGoogleLatLon(made.replace(" ", ""));
-			lat = jsobj.getLong("lat");
-			lng = jsobj.getLong("lng");
+			lat = jsobj.getDouble("lat");
+			lng = jsobj.getDouble("lng");
+			//System.out.print(" "+ lat + ":"+ lng );
 			fail = false;
+			System.out.println("OK at " + made);
 			} catch (Exception e){
 				tries ++; 
-				fail = true;
-				System.out.println("Catch " +tries + ", at " + made);
+				fail = true;				
 			}
-		} while (fail && tries < 10);
-		
+		} while (fail && tries < 3);
+		if (fail){
+			System.out.println("failed at " + made);
+		}
 	}
 	
 	public String itemReturn (){
-		
-		
-		
-		
-		/*
-		 * This is the Logstash Output
-		 {
-          "path" => "C:/Users/eugene/Documents/codes/file/test.txt",
-         "srcip" => "54.164.49.176",
-    "@timestamp" => 2017-03-21T05:33:42.181Z,
-         "geoip" => {
-              "timezone" => "America/New_York",
-                    "ip" => "54.164.49.176",
-              "latitude" => 39.0481,
-        "continent_code" => "NA",
-             "city_name" => "Ashburn",
-         "country_code2" => "US",
-          "country_name" => "United States",
-              "dma_code" => 511,
-         "country_code3" => "US",
-           "region_name" => "Virginia",
-              "location" => [
-            [0] -77.4728,
-            [1] 39.0481
-        ],
-           "postal_code" => "20149",
-             "longitude" => -77.4728,
-           "region_code" => "VA"
-    },
-      
-		 
-		 
-		 * This is the perl Format
+		/* This is the perl Format
 			'2001:db8::/48',
 	        {
 	            color => 'blue',
 	            dogs  => [ 'Fido', 'Ms. Pretty Paws' ],
 	            size  => 42,
 	        },
-	     */
-		
+	     */		
 		String bf = "\t{";
 		bf = bf + "\n\t	location  =>  [" + lng + "," + lat + "]"
 				+ ",\n\t	latitude => '" + lat

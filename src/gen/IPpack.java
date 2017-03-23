@@ -32,6 +32,7 @@ import java.util.TreeSet;
 public class IPpack {
 	
 	Map<IPref, TreeSet<CIDR>> ipMap;	
+	int iteration = 0;
 	//TODO sortout the Pattern Usage
 	//private static Pattern ipPattern = Pattern.compile("(\d+\.\d+\.\d+\.\d+)");
 	
@@ -47,9 +48,9 @@ public class IPpack {
 		
 	private void readin (Scanner in){
 		String buffered = "init";
-		double iteration=0; 
+		iteration=0; 
 		while (in.hasNextLine()) {
-			System.out.print(iteration*100/3737+"% ");
+			
 			buffered = in.nextLine();			
 			produce (buffered);
 			iteration++;
@@ -107,6 +108,7 @@ public class IPpack {
 		if (ipMap.get(ref) == null) {
 			set =  new TreeSet<CIDR> ();
 			ref.complete ();
+			System.out.print(iteration*1000/3737+"% ");
 		} else {
 			set = ipMap.get(ref);
 		}
