@@ -41,7 +41,8 @@ public class Main {
 	PrintWriter out;
 	
 	Main ()  {
-		super();		
+		super();	
+		long time = System.currentTimeMillis();
 		scan = new Scanner (System.in);
 		//guide(); //is it testing? 
 		try {
@@ -61,7 +62,8 @@ public class Main {
 			
 		in.close();
 		out.close();		
-		System.out.print("File Process Complete: " + answers[0] + ", "+ answers[1]);
+		System.out.println("File Process Complete: " + answers[0] + ", "+ answers[1]);
+		System.out.println((System.currentTimeMillis()-time)/1000);
 	}
 			
 	private void guide (){

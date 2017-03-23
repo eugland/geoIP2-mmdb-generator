@@ -56,22 +56,26 @@ public class IPref {
 	
 	private void init(){
 		mader();
-		
 		refv = country+province+city;
-		JSONObject jsobj = new JsonReader ().getGoogleLatLon(made.replace(" ", ""));
-		System.out.println(made + " | " + jsobj) ;
-		lat = jsobj.getLong("lat");
-		lng = jsobj.getLong("lng");
 	}
 	
 	private void mader (){
 		if (city.contains("GCC")){
 			made = country+", " + province+", "+"guelph";
+		}else if (city.contains("MCC")){
+			made = country+", " + province+", "+"Markham";
 		} else if (province == ""){
 			made = country+", " +city;
 		} else {
 			made = country+", " + province+", "+city;
 		}			
+	}
+	
+	public void complete (){
+		JSONObject jsobj = new JsonReader ().getGoogleLatLon(made.replace(" ", ""));
+		
+		lat = jsobj.getLong("lat");
+		lng = jsobj.getLong("lng");
 	}
 	
 	public String itemReturn (){

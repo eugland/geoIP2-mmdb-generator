@@ -80,7 +80,7 @@ public class JsonReader {
 			e.printStackTrace();
 		}
 		JSONArray jsArray =  rawResponse.getJSONArray("results");
-		System.out.println(jsArray);
+		System.out.println(address+ "|"+jsArray);
 		JSONObject jsItemLocation = jsArray.getJSONObject(0).getJSONObject("geometry").getJSONObject("location");
 	    return jsItemLocation;
 	}

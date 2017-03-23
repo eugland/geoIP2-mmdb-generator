@@ -91,11 +91,24 @@ public class IPpack {
 			ref = new IPref (strRef[0],strRef[1]);
 		}
 		
-		
+				
 		
 		if (cidr.exist && ref != null){
 			this.add(ref, cidr);
 		}		
+	}
+	private void add (IPref ref, CIDR ip) {
+		TreeSet<CIDR> set; 
+		
+		if (ipMap.get(ref) == null) {
+			set =  new TreeSet<CIDR> ();
+			ref.complete ();
+		} else {
+			set = ipMap.get(ref);
+		}
+		
+		set.add(ip);
+		ipMap.put(ref, set);
 	}
 	
 	private void write (PrintWriter w)  {
@@ -120,12 +133,7 @@ public class IPpack {
 		w.println(end_command);
 	}
 	
-	private void add (IPref ref, CIDR ip) {
-		TreeSet<CIDR> set; 
-		set = (ipMap.get(ref) == null)? new TreeSet<CIDR> (): ipMap.get(ref);
-		set.add(ip);
-		ipMap.put(ref, set);
-	}
+	
 
 	
 	static String ini_command =  
