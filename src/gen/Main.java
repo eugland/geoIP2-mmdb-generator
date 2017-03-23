@@ -48,8 +48,8 @@ public class Main {
 		ippack = new IPpack();
 		postalPack = new PostalPack ();
 		scan = new Scanner (System.in);
-		answers[0] = "capost.csv";
-		answers[1] = "dict.yaml";
+		answers[0] = "raw.txt";
+		answers[1] = "script.pl";
 		guide(true);					//is it testing? 
 		
 		try {
@@ -67,7 +67,7 @@ public class Main {
 			fileReadin ();
 		}
 		
-		/*
+		
 		try {
 			fileOut.println(yo.ini_command);
 			
@@ -78,9 +78,9 @@ public class Main {
 		} catch (Exception e){
 			System.out.println(e);
 		}
-		*/
 		
-		//postalPack.display();
+		
+		
 		
 		
 		//debug use
@@ -90,21 +90,10 @@ public class Main {
 	private void fileReadin (){
 		String buffered = "init";
 		int count =0;
-		fileOut.println("{");
 		while (in.hasNextLine()) {
-			buffered = in.nextLine();
-			//postalCode
-			postalPack.add(buffered, fileOut);
-			
-			count++;
-			if (count %1000 ==0){
-				System.out.println(count);
-			}
-			//ipPack
-			//ippack.process (buffered);
+			buffered = in.nextLine();			
+			ippack.process (buffered);
 		}
-		fileOut.println("}");
-		fileOut.close();
 	}
 	
 	private void consoleReadin(){
