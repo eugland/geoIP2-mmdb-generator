@@ -20,63 +20,51 @@
 *
 * */
 package gen;
-
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
 
-public class Main {
-	
+public class Main {	
 	String questions[] = {
 		"What is the path for your file?  (type 0 for Command prompt manual input)", 
 		"Where do you want to store the script? ", 
 	};
 	String answers[] = {
-			"raw.txt",
+			"raw-ip.txt",
 			"script.pl"
 	};
-	
 	Scanner scan;
 	Scanner in;
-	PrintWriter fileOut;
-	IPpack ippack; 
-	PostalPack postalPack;
+	PrintWriter out;
 	
-	Main () throws Exception {
-		super();
-		ippack = new IPpack();
+	Main ()  {
+		super();		
 		scan = new Scanner (System.in);
 		//guide(); //is it testing? 
-		
-		fileOut = new PrintWriter (new BufferedWriter (new FileWriter (new File (answers[1]) ) ) );
+		try {
+		out = new PrintWriter (new BufferedWriter (new FileWriter (new File (answers[1]) ) ) );
 		in = new Scanner (new File (answers[0])); 
+		} catch (IOException e) {e.printStackTrace();}
 		
-		
-		
-		if (answers[0].contains("raw")){
-			System.out.println("raw");
-			ippack.readin(in);
-			ippack.write(fileOut);
-		}
-		
+		if (answers[0].contains("ip")){
+			System.out.println("ip");
+			new IPpack().process(in, out);
+		} else if (answers[0].contains("post")){
+			System.out.println("post");
+			new PostalPack ().process (in, out);
+		} else {
+			
+		}		
 			
 		in.close();
-		fileOut.close();
-			
-	
-		
-		
-		
-		
-		//debug use
-		System.out.print(answers[0] + " "+ answers[1]);
+		out.close();		
+		System.out.print("File Process Complete: " + answers[0] + ", "+ answers[1]);
 	}
-	
-		
+			
 	private void guide (){
 		for (int i = 0; i < questions.length; i++){
 			System.out.println(questions[i]);

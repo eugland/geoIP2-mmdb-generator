@@ -38,16 +38,21 @@ public class IPpack {
 	public IPpack (){
 		ipMap = new HashMap<IPref, TreeSet<CIDR>> ();	
 	}
+	
+	public void process (Scanner in, PrintWriter out){
+		readin(in);
+		write(out);
+	}
 		
-	public void readin (Scanner in){
+	private void readin (Scanner in){
 		String buffered = "init";
 		while (in.hasNextLine()) {
 			buffered = in.nextLine();			
-			process (buffered);
+			produce (buffered);
 		}			
 	}
 	
-	public void process(String buffered) {
+	private void produce(String buffered) {
 		CIDR cidr = new CIDR();
 		IPref ref = null; 
 		//Matcher m = ipPattern.matcher(buffered);
@@ -93,7 +98,7 @@ public class IPpack {
 		}		
 	}
 	
-	public boolean write (PrintWriter w) throws Exception {
+	private void write (PrintWriter w)  {
 		w.println(ini_command);
 		Iterator<Entry<IPref, TreeSet<CIDR>>> it = ipMap.entrySet().iterator();
 		while (it.hasNext()){
@@ -113,7 +118,6 @@ public class IPpack {
 			w.flush();
 		}
 		w.println(end_command);
-		return true;		
 	}
 	
 	private void add (IPref ref, CIDR ip) {

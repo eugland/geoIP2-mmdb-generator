@@ -22,35 +22,18 @@
 package gen;
 
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.TreeSet;
-
-import org.json.JSONObject;
+import java.util.Scanner;
 
 public class PostalPack {
-	
-	Map<String, String> postalMap;	
-	
-	
-	public PostalPack (){
-		postalMap = new HashMap<String, String> ();	
-	}
-		
-	
-	public void add (String buffered, PrintWriter w) {
-		String bf[] = buffered.split(",");
-		//System.out.print(bf[0] + "|" + bf[2] + ":" + bf[3]);		
-		w.println ("\""+bf[0]+"\":\""+bf[2]+","+bf[3]+"\",");	
-		w.flush();
-	}
-	
-	
-	
-	
-
-	
+	public PostalPack (){}
+	public void process (Scanner in, PrintWriter out){
+		String buffered = "init";
+		while (in.hasNextLine()) {
+			buffered = in.nextLine();			
+			String bf[] = buffered.split(",");
+			//System.out.print(bf[0] + "|" + bf[2] + ":" + bf[3]);		
+			out.println ("\""+bf[0]+"\":\""+bf[2]+","+bf[3]+"\",");	
+			out.flush();
+		}			
+	}		
 }
-
