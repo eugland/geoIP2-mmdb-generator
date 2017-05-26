@@ -1,7 +1,7 @@
 # GEOIP-mmdb-generator
 GEOIP2-mmdb-generator is a tool made in Java and perl to convert entries of IP and information into a perl script, which is then used to compile the .mmdb GEOIP2 database used via Logstash. 
 
-# Prerequisite
+# Requirement
 To run this tool you will need: 
 - Java Runtime Environment
 - Perl CPANMUS
@@ -18,7 +18,7 @@ cpan Maxmind::Database::Writer
 cpan Maxmind :: DB :: Reader
 ```
 
-# steps to use the Generator: 
+# Steps
 To use the mmdb generator: 
 
 1. Clone the repository, compile the java program, or if you use an Java editor, import the project (there will be a simple executable in final release)
